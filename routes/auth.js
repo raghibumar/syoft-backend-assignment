@@ -11,7 +11,7 @@ router.post("/register", async (req, res) => {
     email: req.body.email,
     password: CryptoJS.AES.encrypt(
       req.body.password,
-      process.env.SECRET_KEY
+      "hellohowareyou"
     ).toString(),
     role: req.body.role,
   });
@@ -34,7 +34,7 @@ router.post("/login", async (req, res) => {
       email: req.body.email,
     });
     !user && res.status(401).json("Enter a valid email");
-    var bytes = CryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
+    var bytes = CryptoJS.AES.decrypt(user.password, "hellohowareyou");
     var originalText = bytes.toString(CryptoJS.enc.Utf8);
 
     originalText !== req.body.password &&
@@ -46,7 +46,7 @@ router.post("/login", async (req, res) => {
         phone: user.phone,
         role: user.role,
       },
-      process.env.SECRET_KEY,
+      "hellohowareyou",
       { expiresIn: "5d" }
     );
 
